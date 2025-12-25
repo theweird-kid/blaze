@@ -90,7 +90,7 @@ func (r *JobRunRepo) MarkSuccess(ctx context.Context, runID bson.ObjectID) error
 	return nil
 }
 
-func (r *JobRunRepo) MarkFailure(ctx context.Context, runID bson.ObjectID, nextRetryAt bson.DateTime) error {
+func (r *JobRunRepo) MarkFailure(ctx context.Context, runID bson.ObjectID, nextRetryAt *bson.DateTime) error {
 	update := bson.M{
 		"$set": bson.M{
 			"status":        models.JobRunFailed,

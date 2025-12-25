@@ -49,3 +49,16 @@ func (r *JobRepo) FindRunnable(ctx context.Context) ([]models.Job, error) {
 	}
 	return jobs, nil
 }
+
+func (r *JobRepo) FindJobDefinition(ctx context.Context, jobID bson.ObjectID) (*models.Job, error) {
+	filter := bson.M{
+		"_id": jobID,
+	}
+
+	var job models.Job
+	err := r.col.FindOne(ctx, filter).Decode(&job)
+	if err != nil {
+		return nil, err
+	}
+	return &job, nil
+}
