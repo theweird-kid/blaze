@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  scheduler:
+    build:
+      context: .
+      dockerfile: deployments/Dockerfile.scheduler
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      DB_NAME: blaze_db
+      WORKER_URL: http://worker:8080
+    restart: on-failure
+
+  worker:
+    build:
+      context: .
+      dockerfile: deployments/Dockerfile.worker
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      DB_NAME: blaze_db
+    ports:
+      - "8080:8080"
+    restart: on-failure

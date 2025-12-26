@@ -1,0 +1,18 @@
+# Binaries
+scheduler
+worker
+seeder
+main
+
+# Environment Varibles
+.env
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Go
+vendor/

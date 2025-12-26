@@ -62,3 +62,27 @@ func (r *JobRepo) FindJobDefinition(ctx context.Context, jobID bson.ObjectID) (*
 	}
 	return &job, nil
 }
+
+func (r *JobRepo) UpdateNextRun(ctx context.Context, jobID bson.ObjectID, nextRunAt *time.Time) error {
+	var update bson.M
+	if nextRunAt == nil {
+		update = bson.M{
+			"$unset": bson.M{
+				"run_at":      "",
+				"next_run_at": "",
+			},
+		}
+	} else {
+		update = bson.M{
+			"$set": bson.M{
+				"next_run_at": nextRunAt,
+			},
+			"$unset": bson.M{ // Clear the one-off run_at if it exists
+				"run_at": "",
+			},
+		}
+	}
+
+	_, err := r.col.UpdateOne(ctx, bson.M{"_id": jobID}, update)
+	return err
+}

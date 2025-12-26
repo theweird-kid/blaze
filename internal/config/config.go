@@ -1,6 +1,10 @@
 package config
 
-import "os"
+import (
+	"os"
+
+	"github.com/joho/godotenv"
+)
 
 type Config struct {
 	MongoURI string
@@ -8,6 +12,8 @@ type Config struct {
 }
 
 func Load() *Config {
+	_ = godotenv.Load()
+
 	return &Config{
 		MongoURI: os.Getenv("MONGO_URI"),
 		DBName:   os.Getenv("DB_NAME"),

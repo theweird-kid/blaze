@@ -1,8 +1,13 @@
 module github.com/theweird-kid/blaze
 
-go 1.25.4
+go 1.23.0
 
-require go.mongodb.org/mongo-driver/v2 v2.4.1
+require (
+	github.com/joho/godotenv v1.5.1
+	github.com/lmittmann/tint v1.1.2
+	github.com/robfig/cron/v3 v3.0.1
+	go.mongodb.org/mongo-driver/v2 v2.4.1
+)
 
 require (
 	github.com/golang/snappy v1.0.0 // indirect
